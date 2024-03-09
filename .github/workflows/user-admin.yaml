@@ -38,3 +38,38 @@ jobs:
           cache-dependency-path: 'user-api/package-lock.json'
       - run: npm ci
       - run: npm audit
+  
+  test:
+    name: Teste de Sistemas (E2E)
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo
+        env:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: root
+        ports:
+          - 27017:27017
+        steps:
+        - name: Checkout
+        - uses: actions/checkout@v2
+        - name: Starts API server in background
+          run:
+            npm --prefix ../user-api ci
+            npm --prefix../user-api run start &
+        - name: Run cypress
+          uses: cypress-io/github-action@v2
+          with:
+            build: npm run build
+            start: npm start
+            working-directory: user-admin
+        - name: Arquiva os videos e screenshots
+          uses: actions/upload-artifact@v2
+          if: failure()
+          with:
+            name: artifacts
+            path:
+              user-admin/cypress/screenshots
+              user-admin/cypress/videos
+            retention-days: 1
+            
