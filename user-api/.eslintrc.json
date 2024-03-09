@@ -1,0 +1,28 @@
+{
+    "env": {
+        "commonjs": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": "google",
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "rules": {
+        /*
+        Aqui está o que cada regra faz:
+
+        "semi": Exige ponto e vírgula no final de cada declaração.
+        "object-curly-spacing": Define que não deve haver espaços entre as chaves em objetos.
+        "quotes": Exige o uso de aspas simples para strings.
+        "indent": Define o tamanho da indentação como 2 espaços.
+        "comma-dangle": Não permite vírgula no final de arrays ou objetos.
+        "no-trailing-spaces": Proíbe espaços em branco no final de linhas.
+        "eol-last": Exige uma nova linha no final do arquivo.
+        "new-cap": Exige que as funções iniciadas com letra maiúscula sejam usadas apenas como construtoras.
+        */
+        "new-cap": ["error", {
+            "capIsNewExceptions": ["ObjectId", "MongoClient"]
+        }]
+    }
+}

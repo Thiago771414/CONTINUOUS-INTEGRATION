@@ -6,11 +6,15 @@
   "scripts": {
     "clear:db": "node src/clear.database",
     "start": "node src/server.js",
-    "test": "jest --watchAll --detectOpenHandles"
+    "test": "jest --watchAll --detectOpenHandles",
+    "lint": "eslint src/**",
+    "lint:fix": "eslint src/** --fix"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-google": "^0.14.0",
     "jest": "^27.3.1",
     "supertest": "^6.1.6"
   },
