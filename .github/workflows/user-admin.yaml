@@ -1,33 +1,42 @@
-test:
-  name: Teste de Sistemas (E2E)
-  runs-on: ubuntu-latest
-  services:
-    mongodb:
-      image: mongo
-      ports:
-        - 27017:27017
-  steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '20'
-    - name: Starts API server in background
-      run: |
-        npm --prefix ../user-api ci
-        npm --prefix ../user-api run start &
-    - name: Run cypress
-      uses: cypress-io/github-action@v2
-      with:
-        build: npm run build
-        start: npm start
-        working-directory: user-admin
-    - name: Arquiva os videos e screenshots
-      uses: actions/upload-artifact@v2
-      if: failure()
-      with:
-        name: artifacts
-        path: |
-          user-admin/cypress/screenshots
-          user-admin/cypress/videos
-        retention-days: 1
+name: User Admin CI
+
+on: 
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Teste de Sistemas (E2E)
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+      - name: Starts API server in background
+        run: |
+          npm --prefix ../user-api ci
+          npm --prefix ../user-api run start &
+      - name: Run cypress
+        uses: cypress-io/github-action@v2
+        with:
+          build: npm run build
+          start: npm start
+          working-directory: user-admin
+      - name: Arquiva os videos e screenshots
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: artifacts
+          path: |
+            user-admin/cypress/screenshots
+            user-admin/cypress/videos
+          retention-days: 1
