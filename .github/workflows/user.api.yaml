@@ -19,7 +19,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 'latest'
+          node-version: '20' # Atualizado para usar Node.js versão 20
           cache: 'npm'
           cache-dependency-path: 'user-api/package-lock.json'
       - run: npm ci
