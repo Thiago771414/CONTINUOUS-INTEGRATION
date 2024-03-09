@@ -1,0 +1,23 @@
+{
+  "name": "integration-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clear:db": "node src/clear.database",
+    "start": "node src/server.js",
+    "test": "jest --watchAll --detectOpenHandles"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^27.3.1",
+    "supertest": "^6.1.6"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.3",
+    "mongodb": "^4.2.0"
+  }
+}
