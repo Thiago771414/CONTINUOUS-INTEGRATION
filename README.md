@@ -46,7 +46,7 @@ Isso iniciará a aplicação React na porta padrão 3001.
 
 # Executando Testes com Cypress
 Para executar os testes E2E com Cypress:
-
+![Mobile 1](https://cypress-io.ghost.io/blog/content/images/2020/07/passing-test.gif)
 Certifique-se de que o backend e o frontend estejam rodando.
 Navegue até o diretório do projeto de testes e execute:
 ````javascript
@@ -61,6 +61,8 @@ Análise Estática: Verifica a qualidade do código e padrões de codificação.
 Teste de Vulnerabilidade: Executa npm audit para identificar dependências com vulnerabilidades conhecidas.
 Testes de Sistema e Integração: Utiliza Cypress para testes E2E, garantindo que a aplicação como um todo funcione conforme esperado.
 Cada workflow é acionado por push ou pull request na branch main.
+
+![Mobile 1](https://user-images.githubusercontent.com/814322/45590890-89e9c800-b8f8-11e8-8c93-620ae51be26a.png)
 
 # Contribuição
 Contribuições são muito bem-vindas. Para contribuir:
