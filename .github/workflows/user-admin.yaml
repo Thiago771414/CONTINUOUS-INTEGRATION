@@ -1,25 +1,28 @@
 name: User Admin CI
-
-on: 
+on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
+
+defaults:
+  run:
+    working-directory: user-admin
 
 jobs:
   lint:
-    name: Análise estática
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: 'user-admin/package-lock.json'
-      - run: npm ci
-      - run: npm run lint
+      name: Análise estática
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Use Node.js
+          uses: actions/setup-node@v2
+          with:
+            node-version: 16.x
+            cache: 'npm'
+            cache-dependency-path: user-api/package-lock.json
+        - run: npm ci
+        - run: npm run lint
 
   vulnerability:
     name: Teste de Vulnerabilidade
@@ -29,26 +32,26 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: 16.x
           cache: 'npm'
-          cache-dependency-path: 'user-admin/package-lock.json'
+          cache-dependency-path: user-api/package-lock.json
       - run: npm ci
-      - run: npm audit
+      - run: npm audit --production
 
-  test:
-    name: Teste de Sistemas (E2E)
+  tests:
+    name: Testes de Sistema (E2E)
     runs-on: ubuntu-latest
     services:
       mongodb:
         image: mongo
+        env:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: root
         ports:
           - 27017:27017
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Starts API server in background
         run: |
           npm --prefix ../user-api ci
@@ -65,6 +68,6 @@ jobs:
         with:
           name: artifacts
           path: |
-            user-admin/cypress/screenshots
-            user-admin/cypress/videos
+            user-admin/cypress/screenshots/
+            user-admin/cypress/videos/
           retention-days: 1
