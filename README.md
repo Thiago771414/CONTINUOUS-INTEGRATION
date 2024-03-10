@@ -45,8 +45,8 @@ npm start
 Isso iniciará a aplicação React na porta padrão 3001.
 
 # Executando Testes com Cypress
-Para executar os testes E2E com Cypress:
 ![Mobile 1](https://cypress-io.ghost.io/blog/content/images/2020/07/passing-test.gif)
+Para executar os testes E2E com Cypress:
 Certifique-se de que o backend e o frontend estejam rodando.
 Navegue até o diretório do projeto de testes e execute:
 ````javascript
