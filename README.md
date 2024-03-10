@@ -62,7 +62,7 @@ Teste de Vulnerabilidade: Executa npm audit para identificar dependências com v
 Testes de Sistema e Integração: Utiliza Cypress para testes E2E, garantindo que a aplicação como um todo funcione conforme esperado.
 Cada workflow é acionado por push ou pull request na branch main.
 
-![Mobile 1](https://user-images.githubusercontent.com/814322/45590890-89e9c800-b8f8-11e8-8c93-620ae51be26a.png)
+![Mobile 1](https://miro.medium.com/v2/resize:fit:700/1*ICOIFVTu5IlAZGGijYezkg.jpeg)
 
 # Contribuição
 Contribuições são muito bem-vindas. Para contribuir:
