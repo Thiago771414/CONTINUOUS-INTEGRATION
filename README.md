@@ -1,77 +1,255 @@
-# Sobre o Projeto
-Este projeto é uma aplicação completa que inclui um backend, um frontend e testes automatizados utilizando Cypress. O objetivo é realizar testes de preenchimento automático de formulário, garantindo que todas as funcionalidades estejam funcionando corretamente.
+# Full-Stack E2E Testing Platform (React + Node.js + Cypress)
 
-# Componentes do Projeto
-Backend: Uma API REST construída com Node.js, express e MongoDB que gerencia usuários.
-Frontend: Uma interface de usuário construída com React e React Admin para interação com os dados dos usuários.
-Testes: Testes E2E (end-to-end) automatizados com Cypress para validar a funcionalidade de preenchimento automático do formulário.
+![Node.js](https://img.shields.io/badge/Node.js-backend-green)
+![React](https://img.shields.io/badge/React-frontend-blue)
+![MongoDB](https://img.shields.io/badge/Database-MongoDB-green)
+![Cypress](https://img.shields.io/badge/Tested%20With-Cypress-black)
+![CI](https://img.shields.io/badge/CI-GitHub%20Actions-blue)
+![Tests](https://img.shields.io/badge/tests-automated-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-yellow)
 
-# Configuração Inicial
-Pré-requisitos
-Node.js (recomendado: versão 16.x ou superior)
-npm (vem com Node.js)
-MongoDB local ou remoto
-Cypress para execução de testes E2E
+A full-stack application designed to demonstrate **automated end-to-end testing using Cypress**.
 
-#Instalação
-Clone o repositório
-````javascript
-git clone <url-do-repositorio>
-````
-Instale as dependências do backend
-Navegue até o diretório do backend e execute:
-````javascript
+The project includes a **Node.js backend, React frontend, and automated testing workflows** that validate user interactions such as form auto-completion and API integration.
+
+---
+
+# Problem
+
+Modern web applications contain multiple layers:
+
+- frontend UI
+- backend APIs
+- database persistence
+- user interactions
+
+Testing each layer individually is not enough to guarantee that the entire system works correctly.
+
+Without **end-to-end testing**, teams risk:
+
+- broken user workflows
+- incorrect form behavior
+- frontend and backend integration failures
+- regressions after code updates
+
+Development teams therefore require a strategy to **validate the full application workflow automatically**.
+
+---
+
+# Solution
+
+This project demonstrates a **full-stack testing strategy** combining:
+
+- a REST API backend
+- a React frontend interface
+- automated end-to-end tests with Cypress
+- CI pipelines for automated validation
+
+The Cypress test suite simulates real user interactions such as:
+
+- form auto-completion
+- user creation
+- API requests
+- UI validation
+
+This ensures that the entire system behaves correctly from the user's perspective.
+
+---
+
+# System Architecture
+
+The application consists of three main components.
+
+### Backend
+
+Node.js + Express API responsible for:
+
+- managing user data
+- interacting with MongoDB
+- exposing REST endpoints
+
+---
+
+### Frontend
+
+React + React Admin interface responsible for:
+
+- displaying user data
+- interacting with the backend API
+- providing form interactions
+
+---
+
+### Automated Testing
+
+Cypress E2E tests simulate real user behavior:
+
+- filling forms
+- submitting data
+- validating UI responses
+- verifying backend integration
+
+---
+
+# E2E Test Demonstration
+
+![Cypress Test](https://github.com/Thiago771414/imagensProjetos/blob/main/slices/mobile/cypress.png)
+
+The tests validate the **complete user workflow**, ensuring that frontend, backend, and database interactions behave as expected.
+
+---
+
+# Continuous Integration Workflow
+
+The project includes **CI pipelines using GitHub Actions** that automatically validate the system.
+
+The pipeline performs:
+
+• static code analysis  
+• dependency vulnerability scanning  
+• automated Cypress E2E tests  
+
+Each workflow is triggered on:
+
+- push events
+- pull requests to the `main` branch
+
+---
+
+# CI Pipeline Architecture
+
+The following diagram illustrates the automated validation workflow.
+
+Typical pipeline flow:
+
+```bash
+Developer Push
+↓
+GitHub Repository
+↓
+CI Pipeline
+↓
+Install Dependencies
+↓
+Run Cypress Tests
+↓
+Validate Application Behavior
+↓
+Generate Test Results
+```
+
+---
+
+# Project Structure
+
+```bash
+project/
+├── backend/
+│ └── Node.js API
+│
+├── frontend/
+│ └── React + React Admin
+│
+├── tests/
+│ └── Cypress E2E tests
+│
+├── .github/
+│ └── CI workflows
+│
+└── README.md
+```
+
+---
+
+# Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+```
+# Backend Setup
+
+Navigate to the backend directory and install dependencies:
+```bash
 cd backend
 npm install
-````
-Instale as dependências do frontend
-Abra um novo terminal, navegue até o diretório do frontend e execute:
-````javascript
+```
+Start the backend server:
+```bash
+npm start
+```
+The API will run on port 3000.
+
+# Frontend Setup
+
+In a new terminal:
+```bash
 cd frontend
 npm install
-````
-# Execução
-## Inicializando o Backend
-No diretório do backend, execute:
-````javascript
 npm start
-Isso iniciará o servidor na porta definida no arquivo .env ou na porta padrão 3000.
-````
-# Inicializando o Frontend
-No diretório do frontend, execute:
-````javascript
-npm start
-````
-Isso iniciará a aplicação React na porta padrão 3001.
+```
+The React application will run on port 3001.
 
-# Executando Testes com Cypress
-![Mobile 1](https://cypress-io.ghost.io/blog/content/images/2020/07/passing-test.gif)
-Para executar os testes E2E com Cypress:
-Certifique-se de que o backend e o frontend estejam rodando.
-Navegue até o diretório do projeto de testes e execute:
-````javascript
+# Running Cypress Tests
+
+Ensure both backend and frontend are running.
+
+Then execute:
+```bash
 npx cypress open
-````
-Isso abrirá a interface do Cypress, onde você pode selecionar e executar os testes especificados.
+```
+This will open the Cypress interface where automated tests can be executed.
 
-# Estrutura do Workflow CI
-O projeto inclui workflows de CI configurados com GitHub Actions para realizar análise estática de código, teste de vulnerabilidades e execução de testes automatizados:
+# Business Value
 
-Análise Estática: Verifica a qualidade do código e padrões de codificação.
-Teste de Vulnerabilidade: Executa npm audit para identificar dependências com vulnerabilidades conhecidas.
-Testes de Sistema e Integração: Utiliza Cypress para testes E2E, garantindo que a aplicação como um todo funcione conforme esperado.
-Cada workflow é acionado por push ou pull request na branch main.
+Automated end-to-end testing platforms like this help development teams:
 
-![Mobile 1](https://miro.medium.com/v2/resize:fit:700/1*ICOIFVTu5IlAZGGijYezkg.jpeg)
+detect integration issues early
 
-# Contribuição
-Contribuições são muito bem-vindas. Para contribuir:
+validate real user workflows
 
-Faça o fork do projeto.
-Crie uma branch para sua funcionalidade (git checkout -b feature/AmazingFeature).
-Faça commit de suas mudanças (git commit -m 'Add some AmazingFeature').
-Faça push para a branch (git push origin feature/AmazingFeature).
-Abra um Pull Request.
+prevent regressions
 
-# Licença
-Distribuído sob a licença MIT. Veja LICENSE para mais informações.
+increase deployment confidence
+
+maintain stable production environments
+
+This approach ensures that software releases remain reliable, predictable, and production-ready.
+
+# Contributing
+
+Contributions are welcome.
+
+Fork the repository
+
+Create a new branch
+
+```bash
+git checkout -b feature/AmazingFeature
+```
+Commit changes
+
+```bash
+git commit -m "Add AmazingFeature"
+```
+Push to branch
+
+```bash
+git push origin feature/AmazingFeature
+```
+
+Open a Pull Request
+
+License
+
+Distributed under the MIT License.
+Author
+
+Thiago Reis Lima
+Software Engineer
+
+LinkedIn
+```bash
+https://www.linkedin.com/in/thiago-lima-2a5896166/
+```
