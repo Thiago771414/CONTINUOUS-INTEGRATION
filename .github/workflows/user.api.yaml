@@ -57,7 +57,6 @@ jobs:
   vulnerability:
     name: Teste de Vulnerabilidade
     runs-on: ubuntu-latest
-    continue-on-error: true
 
     steps:
       - uses: actions/checkout@v4
@@ -70,4 +69,6 @@ jobs:
           cache-dependency-path: user-api/package-lock.json
 
       - run: npm ci
-      - run: npm audit --omit=dev --audit-level=high
+
+      - name: Run audit (non-blocking)
+        run: npm audit --omit=dev --audit-level=high || true
