@@ -6,7 +6,8 @@
   "scripts": {
     "clear:db": "node src/clear.database",
     "start": "node src/server.js",
-    "test": "jest --watchAll --detectOpenHandles",
+    "test": "jest --detectOpenHandles",
+    "test:ci": "jest --runInBand --detectOpenHandles --forceExit",
     "lint": "eslint src/**",
     "lint:fix": "eslint src/** --fix"
   },

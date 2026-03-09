@@ -1,4 +1,5 @@
 name: User Admin CI
+
 on:
   push:
     branches: [ main ]
@@ -11,36 +12,43 @@ defaults:
 
 jobs:
   lint:
-      name: Análise estática
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: Use Node.js
-          uses: actions/setup-node@v2
-          with:
-            node-version: 16.x
-            cache: 'npm'
-            cache-dependency-path: user-api/package-lock.json
-        - run: npm ci
-        - run: npm run lint
+    name: Análise estática
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+          cache: npm
+          cache-dependency-path: user-admin/package-lock.json
+
+      - run: npm ci
+      - run: npm run lint
 
   vulnerability:
     name: Teste de Vulnerabilidade
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 16.x
-          cache: 'npm'
-          cache-dependency-path: user-api/package-lock.json
+          node-version: 16
+          cache: npm
+          cache-dependency-path: user-admin/package-lock.json
+
       - run: npm ci
-      - run: npm audit --production
+      - run: npm audit --omit=dev --audit-level=high
 
   tests:
     name: Testes de Sistema (E2E)
     runs-on: ubuntu-latest
+
     services:
       mongodb:
         image: mongo
@@ -49,21 +57,48 @@ jobs:
           MONGO_INITDB_ROOT_PASSWORD: root
         ports:
           - 27017:27017
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Starts API server in background
-        run: |
-          npm --prefix ../user-api ci
-          npm --prefix ../user-api run start &
-      - name: Run cypress
-        uses: cypress-io/github-action@v2
+        uses: actions/checkout@v4
+
+      - name: Setup Node for API
+        uses: actions/setup-node@v4
         with:
+          node-version: 16
+          cache: npm
+          cache-dependency-path: user-api/package-lock.json
+
+      - name: Install API dependencies
+        run: npm ci
+        working-directory: user-api
+
+      - name: Start API server in background
+        run: npm start &
+        working-directory: user-api
+
+      - name: Setup Node for Frontend
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+          cache: npm
+          cache-dependency-path: user-admin/package-lock.json
+
+      - name: Install Frontend dependencies
+        run: npm ci
+        working-directory: user-admin
+
+      - name: Run Cypress
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: user-admin
           build: npm run build
           start: npm start
-          working-directory: user-admin
+          wait-on: "http://localhost:3000,http://localhost:3001"
+          wait-on-timeout: 120
+
       - name: Arquiva os videos e screenshots
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: artifacts
