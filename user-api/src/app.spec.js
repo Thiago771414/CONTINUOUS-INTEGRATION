@@ -31,6 +31,7 @@ describe('UserApi', () => {
         expect(response.statusCode).toBe(200);
         expect(response.body).toStrictEqual([]);
       });
+
       test('Deve retornar uma lista contendo dois usuários', async () => {
         await userRepository.insert({
           name: 'John Doe',
@@ -73,6 +74,7 @@ describe('UserApi', () => {
           email: 'john@doe.com',
         }));
       });
+
       test.todo('Não permitir a inclusão de e-mails duplicados');
     });
   });
@@ -85,7 +87,7 @@ describe('UserApi', () => {
           email: 'john@doe.com',
         });
 
-        const response = await request(app).get(`/users/${user._id}`);
+        const response = await request(app).get(`/users/${user.id}`);
 
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual(expect.objectContaining({
@@ -96,8 +98,9 @@ describe('UserApi', () => {
 
       test('status code 404 usuário não existente', async () => {
         const response = await request(app).get(
-            `/users/61a05c492d399952b235d8bd`,
+            '/users/61a05c492d399952b235d8bd',
         );
+
         expect(response.statusCode).toBe(404);
         expect(response.body).toStrictEqual({
           message: 'User not found',

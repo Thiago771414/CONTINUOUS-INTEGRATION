@@ -30,19 +30,19 @@ describe('UserRepository', () => {
         email: 'john@doe.com',
       });
 
-      const user = await userRepository
-          .findOneById(ObjectId(result.insertedId));
+      const user = await userRepository.findOneById(ObjectId(result.insertedId));
 
       expect(user).toStrictEqual({
-        _id: result.insertedId,
+        id: result.insertedId.toString(),
         name: 'John Doe',
         email: 'john@doe.com',
       });
     });
 
     test('Deve lançar uma exceção para um usuário não existente', async () => {
-      await expect(userRepository
-          .findOneById(ObjectId('61a05c492d399952b235d8bd')))
+      await expect(
+          userRepository.findOneById(ObjectId('61a05c492d399952b235d8bd')),
+      )
           .rejects
           .toThrow('User with id 61a05c492d399952b235d8bd does not exist');
     });
@@ -58,7 +58,7 @@ describe('UserRepository', () => {
       const user = await userRepository.findOneByEmail('john@doe.com');
 
       expect(user).toStrictEqual({
-        _id: result.insertedId,
+        id: result.insertedId.toString(),
         name: 'John Doe',
         email: 'john@doe.com',
       });
@@ -66,7 +66,8 @@ describe('UserRepository', () => {
 
     test('Deve lançar uma exceção para um usuário não existente', async () => {
       await expect(userRepository.findOneByEmail('john@doe.com'))
-          .rejects.toThrow('User with email john@doe.com does not exist');
+          .rejects
+          .toThrow('User with email john@doe.com does not exist');
     });
   });
 
@@ -90,7 +91,7 @@ describe('UserRepository', () => {
         email: 'john@doe.com',
       });
 
-      await userRepository.update(result._id, {
+      await userRepository.update(result.id, {
         name: 'John Doe da Silva',
         email: 'john@doe.com',
       });
@@ -98,13 +99,21 @@ describe('UserRepository', () => {
       const user = await userRepository.findOneByEmail('john@doe.com');
 
       expect(user).toStrictEqual({
-        _id: result._id,
+        id: result.id,
         name: 'John Doe da Silva',
         email: 'john@doe.com',
       });
     });
-    test('Deve lançar uma exceção para um usuário não existente', async () => {
 
+    test('Deve lançar uma exceção para um usuário não existente', async () => {
+      await expect(
+          userRepository.update('61a05c492d399952b235d8bd', {
+            name: 'John Doe da Silva',
+            email: 'john@doe.com',
+          }),
+      )
+          .rejects
+          .toThrow('User with id 61a05c492d399952b235d8bd was not found');
     });
   });
 
@@ -115,17 +124,15 @@ describe('UserRepository', () => {
         email: 'john@doe.com',
       });
 
-      await userRepository
-          .delete(user._id);
+      await userRepository.delete(user.id);
 
-      await expect(userRepository
-          .findOneByEmail('john@doe.com'))
+      await expect(userRepository.findOneByEmail('john@doe.com'))
           .rejects
           .toThrow();
     });
 
     test('Deve lançar uma exceção para um usuário não existente', async () => {
-      await expect(userRepository.delete(ObjectId('61a05c492d399952b235d8bd')))
+      await expect(userRepository.delete('61a05c492d399952b235d8bd'))
           .rejects
           .toThrow('User with id 61a05c492d399952b235d8bd does not exist');
     });
@@ -136,6 +143,7 @@ describe('UserRepository', () => {
       const list = await userRepository.findAll();
       expect(list).toStrictEqual([]);
     });
+
     test('Deve retornar uma lista contendo dois usuários', async () => {
       const user1 = await userRepository.insert({
         name: 'John Doe',
