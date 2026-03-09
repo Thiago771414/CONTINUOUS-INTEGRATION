@@ -7,6 +7,8 @@
 ![CI](https://img.shields.io/badge/CI-GitHub%20Actions-blue)
 ![Tests](https://img.shields.io/badge/tests-automated-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
+![CI](https://github.com/Thiago771414/CONTINUOUS-INTEGRATION/actions/workflows/user.api.yaml/badge.svg)
+![E2E](https://github.com/Thiago771414/CONTINUOUS-INTEGRATION/actions/workflows/user-admin.yaml/badge.svg)
 
 A full-stack application designed to demonstrate **automated end-to-end testing using Cypress**.
 
