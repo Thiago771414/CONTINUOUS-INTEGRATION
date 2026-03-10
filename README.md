@@ -1,4 +1,5 @@
-# Full-Stack E2E Testing Platform (React + Node.js + Cypress)
+# Full-Stack Integration Testing Pipeline
+Node.js API + React Admin UI validated through automated integration and end-to-end testing using Cypress and GitHub Actions.
 
 ![Node.js](https://img.shields.io/badge/Node.js-backend-green)
 ![React](https://img.shields.io/badge/React-frontend-blue)
@@ -6,156 +7,200 @@
 ![Cypress](https://img.shields.io/badge/Tested%20With-Cypress-black)
 ![CI](https://img.shields.io/badge/CI-GitHub%20Actions-blue)
 ![Tests](https://img.shields.io/badge/tests-automated-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-yellow)
+
 ![CI](https://github.com/Thiago771414/CONTINUOUS-INTEGRATION/actions/workflows/user.api.yaml/badge.svg)
 ![E2E](https://github.com/Thiago771414/CONTINUOUS-INTEGRATION/actions/workflows/user-admin.yaml/badge.svg)
 
-A full-stack application designed to demonstrate **automated end-to-end testing using Cypress**.
+---
 
-The project includes a **Node.js backend, React frontend, and automated testing workflows** that validate user interactions such as form auto-completion and API integration.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Thiago771414/imagensProjetos/blob/main/slices/mobile/cypress2.png" width="900">
+</p>
 
 ---
 
-# Problem
+# Overview
 
-Modern web applications contain multiple layers:
+Modern applications consist of multiple interconnected layers:
 
-- frontend UI
-- backend APIs
-- database persistence
-- user interactions
+• frontend interfaces  
+• backend APIs  
+• database persistence  
+• user interaction flows  
 
-Testing each layer individually is not enough to guarantee that the entire system works correctly.
+Validating each component individually is not sufficient to ensure the system works correctly in production.
 
-Without **end-to-end testing**, teams risk:
+This repository demonstrates how to implement a **complete validation pipeline for a full-stack application**, combining automated integration tests, end-to-end tests, and continuous integration.
 
-- broken user workflows
-- incorrect form behavior
-- frontend and backend integration failures
-- regressions after code updates
+The platform automatically verifies that the **entire application stack works correctly before code changes are merged**.
 
-Development teams therefore require a strategy to **validate the full application workflow automatically**.
+---
+
+# Engineering Problem
+
+In real-world software systems, teams often face issues such as:
+
+• frontend changes breaking API contracts  
+• database schema updates affecting application logic  
+• regressions introduced by new features  
+• broken user workflows not detected during development  
+
+Without automated validation across all layers, these issues may only be discovered after deployment.
+
+Engineering teams therefore require a reliable mechanism to validate:
+
+• backend functionality  
+• frontend behavior  
+• API integration  
+• real user workflows  
+
+before shipping new versions of the system.
 
 ---
 
 # Solution
 
-This project demonstrates a **full-stack testing strategy** combining:
+This project implements a **full-stack automated validation platform** consisting of:
 
-- a REST API backend
-- a React frontend interface
-- automated end-to-end tests with Cypress
-- CI pipelines for automated validation
+• a Node.js REST API  
+• a React Admin user interface  
+• automated integration tests  
+• automated Cypress end-to-end tests  
+• CI pipelines using GitHub Actions  
 
-The Cypress test suite simulates real user interactions such as:
-
-- form auto-completion
-- user creation
-- API requests
-- UI validation
-
-This ensures that the entire system behaves correctly from the user's perspective.
+Each code change triggers automated workflows that validate the system across multiple layers.
 
 ---
 
 # System Architecture
 
-The application consists of three main components.
+The application consists of three primary components.
 
-### Backend
+## Backend API
 
-Node.js + Express API responsible for:
+Node.js + Express service responsible for:
 
-- managing user data
-- interacting with MongoDB
-- exposing REST endpoints
+• user management  
+• MongoDB data persistence  
+• REST API endpoints  
 
----
-
-### Frontend
-
-React + React Admin interface responsible for:
-
-- displaying user data
-- interacting with the backend API
-- providing form interactions
+Integration tests validate database and API behavior.
 
 ---
 
-### Automated Testing
+## Frontend Interface
 
-Cypress E2E tests simulate real user behavior:
+React + React Admin application responsible for:
 
-- filling forms
-- submitting data
-- validating UI responses
-- verifying backend integration
+• user management UI  
+• form interactions  
+• API communication  
 
----
-
-# E2E Test Demonstration
-
-![Cypress Test](https://github.com/Thiago771414/imagensProjetos/blob/main/slices/mobile/cypress.png)
-
-The tests validate the **complete user workflow**, ensuring that frontend, backend, and database interactions behave as expected.
+The UI interacts directly with the backend services.
 
 ---
 
-# Continuous Integration Workflow
+## Testing Layer
 
-The project includes **CI pipelines using GitHub Actions** that automatically validate the system.
+Automated validation occurs at two levels.
 
-The pipeline performs:
+### Integration Testing
 
-• static code analysis  
+Validates backend functionality including:
+
+• database operations  
+• API endpoints  
+• data persistence  
+
+---
+
+### End-to-End Testing
+
+Cypress tests simulate real user behavior:
+
+• navigating the application  
+• filling forms  
+• submitting data  
+• verifying UI updates  
+
+This ensures the **entire system behaves correctly from the user's perspective**.
+
+---
+
+# Continuous Integration Pipeline
+
+Automated CI pipelines are implemented using GitHub Actions.
+
+Each push or pull request triggers the validation workflow.
+
+## API Validation Pipeline
+
+The backend pipeline automatically executes:
+
+• static code analysis (ESLint)  
+• dependency vulnerability scanning (`npm audit`)  
+• automated integration tests  
+• MongoDB container provisioning for testing  
+
+---
+
+## Frontend + E2E Validation Pipeline
+
+The frontend pipeline executes:
+
+• frontend lint validation  
 • dependency vulnerability scanning  
-• automated Cypress E2E tests  
+• React application startup  
+• API service startup  
+• Cypress E2E test execution  
+• artifact collection for debugging  
 
-Each workflow is triggered on:
-
-- push events
-- pull requests to the `main` branch
+The pipeline ensures that both services are fully operational before tests begin.
 
 ---
-
-# CI Pipeline Architecture
-
-The following diagram illustrates the automated validation workflow.
-
-Typical pipeline flow:
+# CI Pipeline Flow
 
 ```bash
 Developer Push
 ↓
 GitHub Repository
 ↓
-CI Pipeline
+GitHub Actions
 ↓
 Install Dependencies
 ↓
-Run Cypress Tests
+Start Backend + Database
 ↓
-Validate Application Behavior
+Start Frontend
 ↓
-Generate Test Results
+Run Integration Tests
+↓
+Run Cypress E2E Tests
+↓
+Validate System Behavior
 ```
+
+---
+
+# E2E Test Demonstration
+
+The test suite validates real user workflows across the full stack.
 
 ---
 
 # Project Structure
 
 ```bash
-project/
-├── backend/
-│ └── Node.js API
+├── user-api
+│ └── Node.js REST API
 │
-├── frontend/
-│ └── React + React Admin
+├── user-admin
+│ └── React Admin UI
 │
-├── tests/
-│ └── Cypress E2E tests
+├── cypress
+│ └── E2E tests
 │
-├── .github/
+├── .github
 │ └── CI workflows
 │
 └── README.md
@@ -163,95 +208,62 @@ project/
 
 ---
 
-# Installation
+# Running the Project
 
 Clone the repository:
 
 ```bash
-git clone 
+git clone
 ```
-# Backend Setup
 
-Navigate to the backend directory and install dependencies:
-```bash
-cd backend
-npm install
-```
-Start the backend server:
-```bash
-npm start
-```
-The API will run on port 3000.
+Install backend dependencies:
 
-# Frontend Setup
-
-In a new terminal:
 ```bash
-cd frontend
+cd user-api
 npm install
 npm start
 ```
-The React application will run on port 3001.
 
-# Running Cypress Tests
+Start the frontend:
 
-Ensure both backend and frontend are running.
+```bash
+cd ../user-admin
+npm install
+npm start
+```
 
-Then execute:
+Run Cypress tests:
+
 ```bash
 npx cypress open
 ```
-This will open the Cypress interface where automated tests can be executed.
 
-# Business Value
+---
 
-Automated end-to-end testing platforms like this help development teams:
+# Engineering Value
 
-detect integration issues early
+This project demonstrates practical experience with:
 
-validate real user workflows
+• CI/CD pipeline design  
+• automated test orchestration  
+• full-stack system validation  
+• GitHub Actions workflow automation  
+• Cypress end-to-end testing  
+• containerized service dependencies  
 
-prevent regressions
+The architecture reflects patterns used by modern engineering teams to ensure **reliable software delivery pipelines**.
 
-increase deployment confidence
+---
 
-maintain stable production environments
+# Author
 
-This approach ensures that software releases remain reliable, predictable, and production-ready.
-
-# Contributing
-
-Contributions are welcome.
-
-Fork the repository
-
-Create a new branch
-
-```bash
-git checkout -b feature/AmazingFeature
-```
-Commit changes
-
-```bash
-git commit -m "Add AmazingFeature"
-```
-Push to branch
-
-```bash
-git push origin feature/AmazingFeature
-```
-
-Open a Pull Request
-
-License
-
-Distributed under the MIT License.
-Author
-
-Thiago Reis Lima
+Thiago Reis Lima  
 Software Engineer
 
 LinkedIn
 ```bash
 https://www.linkedin.com/in/thiago-lima-2a5896166/
 ```
+
+
+
