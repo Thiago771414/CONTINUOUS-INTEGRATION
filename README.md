@@ -14,7 +14,7 @@ Node.js API + React Admin UI validated through automated integration and end-to-
 ---
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Thiago771414/imagensProjetos/blob/main/slices/mobile/cypress2.png" width="900">
+  <img src="https://raw.githubusercontent.com/Thiago771414/imagensProjetos/main/slices/mobile/cypress2.png" width="900">
 </p>
 
 ---
