@@ -1,6 +1,4 @@
 # Full-Stack Integration Testing Pipeline
-Node.js API + React Admin UI validated through automated integration and end-to-end testing using Cypress and GitHub Actions.
-
 ![Node.js](https://img.shields.io/badge/Node.js-backend-green)
 ![React](https://img.shields.io/badge/React-frontend-blue)
 ![MongoDB](https://img.shields.io/badge/Database-MongoDB-green)
@@ -10,6 +8,8 @@ Node.js API + React Admin UI validated through automated integration and end-to-
 
 ![CI](https://github.com/Thiago771414/CONTINUOUS-INTEGRATION/actions/workflows/user.api.yaml/badge.svg)
 ![E2E](https://github.com/Thiago771414/CONTINUOUS-INTEGRATION/actions/workflows/user-admin.yaml/badge.svg)
+
+Node.js API + React Admin UI validated through automated integration and end-to-end testing using Cypress and GitHub Actions.
 
 ---
 
